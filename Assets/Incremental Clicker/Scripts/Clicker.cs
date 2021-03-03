@@ -20,6 +20,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] SpriteRenderer rendChests;
     [SerializeField] Text chestText;
     [SerializeField] int chestLv;
+    [SerializeField] int chestCost;
 
     [Header("Hair")]
     [SerializeField] List<Sprite> hair;
@@ -27,7 +28,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] Text hairText;
     [SerializeField] int hairLv;
     [SerializeField] GameObject hairButton;
-
+    [SerializeField] int hairCost;
 
     [Header("Shield")] 
     [SerializeField] List<Sprite> shield;
@@ -35,7 +36,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] Text shieldText;
     [SerializeField] int shieldLv;
     [SerializeField] GameObject shieldButton;
-
+    [SerializeField] int shieldCost;
 
     [Header("Weapon")]
     [SerializeField] List<Sprite> weapon;
@@ -43,7 +44,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] Text weaponText;
     [SerializeField] int weaponLv;
     [SerializeField] GameObject weaponButton;
-
+    [SerializeField] int weaponCost;
 
     [Header("Pants")]
     [SerializeField] List<Sprite> pants;
@@ -51,6 +52,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] Text pantsText;
     [SerializeField] int pantsLv;
     [SerializeField] GameObject pantsButton;
+    [SerializeField] int pantsCost;
 
 
     // Start is called before the first frame update
@@ -62,27 +64,27 @@ public class Clicker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(chestLv >= 10)
+        if(chestLv >= 10 && playerLv == 1)
         {
             hairButton.SetActive(true);
             upButton.SetActive(true);
         }
-        if(chestLv >= 20 && hairLv >= 10)
+        if(chestLv >= 20 && hairLv >= 10 && playerLv == 2)
         {
             shieldButton.SetActive(true);
             upButton.SetActive(true);
         }
-        if (chestLv >= 30 && hairLv >= 20 && shieldLv >= 10)
+        if (chestLv >= 30 && hairLv >= 20 && shieldLv >= 10 && playerLv == 3)
         {
             weaponButton.SetActive(true);
             upButton.SetActive(true);
         }
-        if (chestLv >= 40 && hairLv >= 30 && shieldLv >= 20 && weaponLv >= 10)
+        if (chestLv >= 40 && hairLv >= 30 && shieldLv >= 20 && weaponLv >= 10 && playerLv == 4)
         {
             pantsButton.SetActive(true);
             upButton.SetActive(true);
         }
-        if (chestLv >= 50 && hairLv >= 40 && shieldLv >= 30 && weaponLv >= 20 && pantsLv >= 10)
+        if (chestLv >= 50 && hairLv >= 40 && shieldLv >= 30 && weaponLv >= 20 && pantsLv >= 10 && playerLv == 5)
         {
             upButton.SetActive(true);
         }
@@ -98,47 +100,72 @@ public class Clicker : MonoBehaviour
 
     public void ChestUp()
     {
-        int rand = Random.Range(0, chests.Count);
-        rendChests.sprite = chests[rand];
-        chestLv++;
-        chestText.text = "LV : " + chestLv;
-        getMoney = getMoney + 1;
+        if (currentPoint >= chestCost)
+        {
+            int rand = Random.Range(0, chests.Count);
+            rendChests.sprite = chests[rand];
+            chestLv++;
+            chestText.text = "LV : " + chestLv;
+            getMoney = getMoney + 1;
+            currentPoint = currentPoint - chestCost;
+            chestCost = chestCost * 2;
+        }
     }
 
     public void HairUp()
     {
-        int rand = Random.Range(0, hair.Count);
-        rendHair.sprite = hair[rand];
-        hairLv++;
-        hairText.text = "LV : " + hairLv;
-        getMoney = getMoney + 2;
+        if (currentPoint >= hairCost)
+        {
+            int rand = Random.Range(0, hair.Count);
+            rendHair.sprite = hair[rand];
+            hairLv++;
+            hairText.text = "LV : " + hairLv;
+            getMoney = getMoney + 2;
+            currentPoint = currentPoint - hairCost;
+            hairCost = hairCost * 2;
+        }
     }
 
     public void ShieldUp()
     {
-        int rand = Random.Range(0, shield.Count);
-        rendShield.sprite = shield[rand];
-        shieldLv++;
-        shieldText.text = "LV : " + shieldLv;
-        getMoney = getMoney + 3;
+        if (currentPoint >= shieldCost)
+        {
+            int rand = Random.Range(0, shield.Count);
+            rendShield.sprite = shield[rand];
+            shieldLv++;
+            shieldText.text = "LV : " + shieldLv;
+            getMoney = getMoney + 3;
+            currentPoint = currentPoint - shieldCost;
+            shieldCost = shieldCost * 2;
+        }
     }
 
     public void WeaponUp()
     {
-        int rand = Random.Range(0, weapon.Count);
-        rendWeapon.sprite = weapon[rand];
-        weaponLv++;
-        weaponText.text = "LV : " + weaponLv;
-        getMoney = getMoney + 4;
+        if (currentPoint >= weaponCost)
+        {
+            int rand = Random.Range(0, weapon.Count);
+            rendWeapon.sprite = weapon[rand];
+            weaponLv++;
+            weaponText.text = "LV : " + weaponLv;
+            getMoney = getMoney + 4;
+            currentPoint = currentPoint - weaponCost;
+            weaponCost = weaponCost * 2;
+        }
     }
 
     public void PantsUp()
     {
-        int rand = Random.Range(0, pants.Count);
-        rendPants.sprite = pants[rand];
-        pantsLv++;
-        pantsText.text = "LV : " + pantsLv;
-        getMoney = getMoney + 5;
+        if (currentPoint >= pantsCost)
+        {
+            int rand = Random.Range(0, pants.Count);
+            rendPants.sprite = pants[rand];
+            pantsLv++;
+            pantsText.text = "LV : " + pantsLv;
+            getMoney = getMoney + 5;
+            currentPoint = currentPoint - pantsCost;
+            pantsCost = pantsCost * 2;
+        }
     }
     public void Up()
     {
