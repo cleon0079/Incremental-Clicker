@@ -20,7 +20,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] SpriteRenderer rendChests;
     [SerializeField] Text chestText;
     [SerializeField] int chestLv;
-    [SerializeField] int chestCost;
+    [SerializeField] int chestCost = 50;
 
     [Header("Hair")]
     [SerializeField] List<Sprite> hair;
@@ -28,7 +28,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] Text hairText;
     [SerializeField] int hairLv;
     [SerializeField] GameObject hairButton;
-    [SerializeField] int hairCost;
+    [SerializeField] int hairCost = 100;
 
     [Header("Shield")] 
     [SerializeField] List<Sprite> shield;
@@ -36,7 +36,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] Text shieldText;
     [SerializeField] int shieldLv;
     [SerializeField] GameObject shieldButton;
-    [SerializeField] int shieldCost;
+    [SerializeField] int shieldCost = 150;
 
     [Header("Weapon")]
     [SerializeField] List<Sprite> weapon;
@@ -44,7 +44,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] Text weaponText;
     [SerializeField] int weaponLv;
     [SerializeField] GameObject weaponButton;
-    [SerializeField] int weaponCost;
+    [SerializeField] int weaponCost = 200;
 
     [Header("Pants")]
     [SerializeField] List<Sprite> pants;
@@ -52,7 +52,7 @@ public class Clicker : MonoBehaviour
     [SerializeField] Text pantsText;
     [SerializeField] int pantsLv;
     [SerializeField] GameObject pantsButton;
-    [SerializeField] int pantsCost;
+    [SerializeField] int pantsCost = 250;
 
 
     // Start is called before the first frame update
