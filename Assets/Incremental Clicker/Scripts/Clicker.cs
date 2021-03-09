@@ -7,51 +7,61 @@ public class Clicker : MonoBehaviour
 {
     [Header("Money")]
     [SerializeField] Text text;
+    [SerializeField] float gameTime;
     [SerializeField] int currentPoint = 10;
     [SerializeField] int getMoney = 1;
 
     [Header("Player")]
+    [SerializeField] GameObject upButton;
     [SerializeField] Text playerText;
     [SerializeField] int playerLv = 1;
-    [SerializeField] GameObject upButton;
 
     [Header("Chest")]
-    [SerializeField] List<Sprite> chests;
     [SerializeField] SpriteRenderer rendChests;
+    [SerializeField] List<Sprite> chests;
     [SerializeField] Text chestText;
-    [SerializeField] int chestLv;
+    [SerializeField] Text chestCostText;
+    [SerializeField] int chestLv = 1;
     [SerializeField] int chestCost = 50;
 
     [Header("Hair")]
-    [SerializeField] List<Sprite> hair;
     [SerializeField] SpriteRenderer rendHair;
-    [SerializeField] Text hairText;
-    [SerializeField] int hairLv;
+    [SerializeField] List<Sprite> hair;
     [SerializeField] GameObject hairButton;
+    [SerializeField] GameObject hairUnlock;
+    [SerializeField] Text hairText;
+    [SerializeField] Text hairCostText;
+    [SerializeField] int hairLv = 1;
     [SerializeField] int hairCost = 100;
 
     [Header("Shield")] 
-    [SerializeField] List<Sprite> shield;
     [SerializeField] SpriteRenderer rendShield;
-    [SerializeField] Text shieldText;
-    [SerializeField] int shieldLv;
+    [SerializeField] List<Sprite> shield;
     [SerializeField] GameObject shieldButton;
+    [SerializeField] GameObject shieldUnlock;
+    [SerializeField] Text shieldText;
+    [SerializeField] Text shieldCostText;
+    [SerializeField] int shieldLv = 1;
     [SerializeField] int shieldCost = 150;
 
     [Header("Weapon")]
-    [SerializeField] List<Sprite> weapon;
     [SerializeField] SpriteRenderer rendWeapon;
-    [SerializeField] Text weaponText;
-    [SerializeField] int weaponLv;
+    [SerializeField] List<Sprite> weapon;
     [SerializeField] GameObject weaponButton;
+    [SerializeField] GameObject weaponUnlock;
+    [SerializeField] Text weaponText;
+    [SerializeField] Text weaponCostText;
+    [SerializeField] int weaponLv = 1;
     [SerializeField] int weaponCost = 200;
 
     [Header("Pants")]
-    [SerializeField] List<Sprite> pants;
     [SerializeField] SpriteRenderer rendPants;
-    [SerializeField] Text pantsText;
-    [SerializeField] int pantsLv;
+    [SerializeField] List<Sprite> pants;
     [SerializeField] GameObject pantsButton;
+    [SerializeField] GameObject pantsUnlock;
+    [SerializeField] Text pantsText;
+    [SerializeField] Text pantsCostText;
+    [SerializeField] int pantsLv = 1;
     [SerializeField] int pantsCost = 250;
 
 
@@ -64,24 +74,59 @@ public class Clicker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(chestLv >= 10 && playerLv == 1)
+        gameTime += Time.deltaTime;
+        if(gameTime >= 1f && playerLv == 1)
+        {
+            currentPoint = currentPoint + chestLv + playerLv;
+            gameTime--;
+        }
+        if(gameTime >= 1f && playerLv == 2)
+        {
+            currentPoint = currentPoint + chestLv + hairLv + playerLv;
+            gameTime--;
+        }
+        if (gameTime >= 1f && playerLv == 3)
+        {
+            currentPoint = currentPoint + chestLv + hairLv + shieldLv + playerLv;
+            gameTime--;
+        }
+        if (gameTime >= 1f && playerLv == 4)
+        {
+            currentPoint = currentPoint + chestLv + hairLv + shieldLv + weaponLv + playerLv;
+            gameTime--;
+        }
+        if (gameTime >= 1f && playerLv == 5)
+        {
+            currentPoint = currentPoint + chestLv + hairLv + shieldLv + weaponLv + pantsLv + playerLv;
+            gameTime--;
+        }
+        if (gameTime >= 1f && playerLv == 6)
+        {
+            currentPoint = currentPoint + ((chestLv + hairLv + shieldLv + weaponLv + pantsLv + playerLv) * 2);
+            gameTime--;
+        }
+        if (chestLv >= 10 && playerLv == 1)
         {
             hairButton.SetActive(true);
+            hairUnlock.SetActive(false);
             upButton.SetActive(true);
         }
         if(chestLv >= 20 && hairLv >= 10 && playerLv == 2)
         {
             shieldButton.SetActive(true);
+            shieldUnlock.SetActive(false);
             upButton.SetActive(true);
         }
         if (chestLv >= 30 && hairLv >= 20 && shieldLv >= 10 && playerLv == 3)
         {
             weaponButton.SetActive(true);
+            weaponUnlock.SetActive(false);
             upButton.SetActive(true);
         }
         if (chestLv >= 40 && hairLv >= 30 && shieldLv >= 20 && weaponLv >= 10 && playerLv == 4)
         {
             pantsButton.SetActive(true);
+            pantsUnlock.SetActive(false);
             upButton.SetActive(true);
         }
         if (chestLv >= 50 && hairLv >= 40 && shieldLv >= 30 && weaponLv >= 20 && pantsLv >= 10 && playerLv == 5)
@@ -90,6 +135,11 @@ public class Clicker : MonoBehaviour
         }
         playerText.text = "LV : " + playerLv;
         text.text = "$ " + currentPoint;
+        chestCostText.text = "$ " + chestCost;
+        hairCostText.text = "$ " + hairCost;
+        shieldCostText.text = "$ " + shieldCost;
+        weaponCostText.text = "$ " + weaponCost;
+        pantsCostText.text = "$ " + pantsCost;
     }
 
 
