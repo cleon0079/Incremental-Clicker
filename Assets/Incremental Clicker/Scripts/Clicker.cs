@@ -7,6 +7,7 @@ public class Clicker : MonoBehaviour
 {
     [Header("Money")]
     [SerializeField] Text text;
+    [SerializeField] Text moneyGetText;
     [SerializeField] float gameTime;
     [SerializeField] int currentPoint = 10;
     [SerializeField] int getMoney = 1;
@@ -64,16 +65,11 @@ public class Clicker : MonoBehaviour
     [SerializeField] int pantsLv = 1;
     [SerializeField] int pantsCost = 250;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
+        // Add money per min depend on the player's level and equipment's level
+        // Why if statement because Time.deltaTime is a float and i need a int
         gameTime += Time.deltaTime;
         if(gameTime >= 1f && playerLv == 1)
         {
@@ -105,6 +101,8 @@ public class Clicker : MonoBehaviour
             currentPoint = currentPoint + ((chestLv + hairLv + shieldLv + weaponLv + pantsLv + playerLv) * 2);
             gameTime--;
         }
+
+        // Make the button shows when player up the certain level
         if (chestLv >= 10 && playerLv == 1)
         {
             hairButton.SetActive(true);
@@ -133,6 +131,8 @@ public class Clicker : MonoBehaviour
         {
             upButton.SetActive(true);
         }
+
+
         playerText.text = "LV : " + playerLv;
         text.text = "$ " + currentPoint;
         chestCostText.text = "$ " + chestCost;
@@ -140,11 +140,13 @@ public class Clicker : MonoBehaviour
         shieldCostText.text = "$ " + shieldCost;
         weaponCostText.text = "$ " + weaponCost;
         pantsCostText.text = "$ " + pantsCost;
+        moneyGetText.text = "$ " + getMoney + " / Click";
     }
 
 
     public void GetMoney()
     {
+        // OnClick function for the Click and get money button
         currentPoint = currentPoint + getMoney;
     }
 
@@ -152,6 +154,7 @@ public class Clicker : MonoBehaviour
     {
         if (currentPoint >= chestCost)
         {
+            // Change the sprite in the list when it level up everytime 
             int rand = Random.Range(0, chests.Count);
             rendChests.sprite = chests[rand];
             chestLv++;
@@ -166,6 +169,7 @@ public class Clicker : MonoBehaviour
     {
         if (currentPoint >= hairCost)
         {
+            // Change the sprite in the list when it level up everytime 
             int rand = Random.Range(0, hair.Count);
             rendHair.sprite = hair[rand];
             hairLv++;
@@ -180,6 +184,7 @@ public class Clicker : MonoBehaviour
     {
         if (currentPoint >= shieldCost)
         {
+            // Change the sprite in the list when it level up everytime 
             int rand = Random.Range(0, shield.Count);
             rendShield.sprite = shield[rand];
             shieldLv++;
@@ -194,6 +199,7 @@ public class Clicker : MonoBehaviour
     {
         if (currentPoint >= weaponCost)
         {
+            // Change the sprite in the list when it level up everytime 
             int rand = Random.Range(0, weapon.Count);
             rendWeapon.sprite = weapon[rand];
             weaponLv++;
@@ -208,6 +214,7 @@ public class Clicker : MonoBehaviour
     {
         if (currentPoint >= pantsCost)
         {
+            // Change the sprite in the list when it level up everytime 
             int rand = Random.Range(0, pants.Count);
             rendPants.sprite = pants[rand];
             pantsLv++;
@@ -219,6 +226,7 @@ public class Clicker : MonoBehaviour
     }
     public void Up()
     {
+        // Player level up OnClick function
         playerLv++;
         getMoney = getMoney + (playerLv * 2);
         upButton.SetActive(false);
